@@ -11,6 +11,7 @@ import { Button } from "../../../shared/ui/button/button";
 import { routes } from "../../../shared/config/routes";
 import { useProductCategories } from "../lib/useProductCategories";
 import { useFormData } from "../../../app/providers/form-data/lib/use-form-data";
+import s from "./placeOfWorkForm.module.scss";
 
 interface PlaceOfWorkFormProps {
     onSubmit: (data: WorkData) => void;
@@ -118,7 +119,7 @@ export const PlaceOfWorkForm: React.FC<
                 />
             </div>
 
-            <div className="form-buttons">
+            <div className={s.formButtons}>
                 <Button
                     onClick={onBack}
                     disabled={isLoading}

@@ -146,7 +146,7 @@ export const LoanForm: React.FC<LoanFormProps> = ({
                     />
                 </div>
 
-                <div className="formButtons">
+                <div className={s.formButtons}>
                     <Button
                         type="button"
                         onClick={onBack}
