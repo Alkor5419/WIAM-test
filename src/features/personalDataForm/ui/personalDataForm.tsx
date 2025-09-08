@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../../shared/config/routes";
@@ -8,6 +8,7 @@ import { Select } from "../../../shared/ui/select/select";
 import { Button } from "../../../shared/ui/button/button";
 import { PhoneInput } from "../../../shared/ui/phoneInput/phoneInput";
 import s from "./personalDataForm.module.scss";
+import { useFormData } from "../../../app/providers/form-data/lib/use-form-data";
 
 interface PersonalDataFormProps {
     onSubmit: (data: PersonalData) => void;
@@ -18,20 +19,34 @@ export const PersonalDataForm: React.FC<
     PersonalDataFormProps
 > = ({ onSubmit, isLoading = false }) => {
     const navigate = useNavigate();
+    const { formData } = useFormData();
     const {
         register,
         handleSubmit,
         formState: { errors },
         setValue,
         trigger,
+        reset,
     } = useForm<PersonalData>({
         defaultValues: {
-            phone: "",
-            firstName: "",
-            lastName: "",
-            gender: "",
+            phone: formData?.personal?.phone || "",
+            firstName: formData?.personal?.firstName || "",
+            lastName: formData?.personal?.lastName || "",
+            gender: formData?.personal?.gender || "",
         },
     });
+
+    useEffect(() => {
+        if (formData?.personal) {
+            reset({
+                phone: formData.personal.phone || "",
+                firstName:
+                    formData.personal.firstName || "",
+                lastName: formData.personal.lastName || "",
+                gender: formData.personal.gender || "",
+            });
+        }
+    }, [formData, reset]);
 
     const handleFormSubmit = (data: PersonalData) => {
         onSubmit(data);
@@ -59,6 +74,7 @@ export const PersonalDataForm: React.FC<
         <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div>
                 <PhoneInput
+                    value={formData?.personal?.phone || ""}
                     label="Телефон *"
                     onChange={handlePhoneChange}
                     error={errors.phone?.message}

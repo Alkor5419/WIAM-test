@@ -2,7 +2,6 @@ export const routes = {
     personalData: "/",
     placeOfWork: "/place-of-work",
     loanParameters: "/loan-parameters",
-    result: "/profile",
     notFound: "*",
 } as const;
 

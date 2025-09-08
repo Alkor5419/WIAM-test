@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCallback, useState } from "react";
 import { Input, InputProps } from "../input/input";
 
@@ -41,6 +41,9 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
         formatPhoneValue(value)
     );
 
+    useEffect(() => {
+        setDisplayValue(formatPhoneValue(value));
+    }, [value]);
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             const inputValue = e.target.value;
@@ -83,6 +86,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
         },
         []
     );
+
     return (
         <Input
             type="tel"

@@ -25,7 +25,12 @@ export const Select: React.FC<SelectProps> = ({
     });
 
     return (
-        <div className={className}>
+        <div
+            className={classNames(
+                s.selectContainer,
+                className
+            )}
+        >
             <select className={selectClass} {...props}>
                 {options.map((option) => (
                     <option

@@ -5,18 +5,11 @@ import { routes } from "../../shared/config/routes";
 import { NotFoundPage } from "../../pages/notFoundPage/notFoundPage";
 import { PersonalDataPage } from "../../pages/personalDataPage/personalDataPage";
 import { PlaceOfWorkPage } from "../../pages/placeOfWorkPage/placeOfWorkPage";
+import { LoanParametersPage } from "../../pages/loanParametersPage/loanParametersPage";
 
 function App() {
     return (
         <Routes>
-            <Route
-                path={routes.loanParameters}
-                element={
-                    <Layout>
-                        <NotFoundPage />
-                    </Layout>
-                }
-            ></Route>
             <Route
                 path={routes.personalData}
                 element={
@@ -34,10 +27,10 @@ function App() {
                 }
             ></Route>
             <Route
-                path={routes.result}
+                path={routes.loanParameters}
                 element={
                     <Layout>
-                        <NotFoundPage />
+                        <LoanParametersPage />
                     </Layout>
                 }
             ></Route>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,6 +10,7 @@ import { Select } from "../../../shared/ui/select/select";
 import { Button } from "../../../shared/ui/button/button";
 import { routes } from "../../../shared/config/routes";
 import { useProductCategories } from "../lib/useProductCategories";
+import { useFormData } from "../../../app/providers/form-data/lib/use-form-data";
 
 interface PlaceOfWorkFormProps {
     onSubmit: (data: WorkData) => void;
@@ -26,17 +27,35 @@ export const PlaceOfWorkForm: React.FC<
         isLoading: categoriesLoading,
         error,
     } = useProductCategories();
+    const { formData } = useFormData();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
+        setValue,
     } = useForm<WorkData>({
         defaultValues: {
-            workplace: "",
-            address: "",
+            workplace: formData?.work?.workplace || "",
+            address: formData?.work?.address || "",
         },
     });
+
+    useEffect(() => {
+        if (formData?.work) {
+            reset({
+                workplace: formData?.work?.workplace || "",
+                address: formData?.work?.address || "",
+            });
+        }
+    }, [formData, reset]);
+
+    useEffect(() => {
+        if (formData?.work?.workplace) {
+            setValue("workplace", formData.work.workplace);
+        }
+    }, [formData, setValue, categories]);
 
     const handleFormSubmit = (data: WorkData) => {
         onSubmit(data);

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ProductCategory } from "../model/types";
-
-const BASE_URL = "https://dummyjson.com";
+import { BASE_URL } from "../../../shared/config/api";
 
 export const workApi = {
     getProductCategories: async (): Promise<
